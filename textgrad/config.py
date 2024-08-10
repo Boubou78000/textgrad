@@ -1,6 +1,8 @@
 from .engine import EngineLM, get_engine
 from typing import Union
 
+TransformersConfig = { }
+
 class SingletonBackwardEngine:
     """
     A singleton class representing the backward engine.

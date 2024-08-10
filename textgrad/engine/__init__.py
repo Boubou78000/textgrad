@@ -1,4 +1,5 @@
 from .base import EngineLM, CachedEngine
+from ..config import TransformersConfig
 
 __ENGINE_NAME_SHORTCUTS__ = {
     "opus": "claude-3-opus-20240229",
@@ -49,5 +50,8 @@ def get_engine(engine_name: str, **kwargs) -> EngineLM:
     elif engine_name in ["command-r-plus", "command-r", "command", "command-light"]:
         from .cohere import ChatCohere
         return ChatCohere(model_string=engine_name, **kwargs)
+    elif engine_name.startswith("hf://"):
+        from .hf import ChatHF
+        return ChatHF(model_string=engine_name[5:], **TransformersConfig)
     else:
         raise ValueError(f"Engine {engine_name} not supported")
